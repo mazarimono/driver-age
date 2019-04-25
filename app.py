@@ -21,40 +21,44 @@ app.layout = html.Div([
                         go.Bar(
                             x=df['age'],
                             y=df['total'],
-                            name = 'population'
+                            name = 'population',
+                            showlegend=False,
                         ),
                         go.Bar(
                             x = df['age'],
                             y = df1['合計'],
-                            name='has driver license'
-                        )
+                            name='has driver license',
+                            showlegend=False,
+                        ),
                     ],
                     'layout':{
                         'xaxis': {'title':{'text': '<b>年齢</b>', 'font':{'size': 20}}},
                         'yaxis':{'title':{'text': '<b>人口</b>', 'font':{'size': 20}}},
+                        'height': '900px',
                     }
                 }
         ),
     html.Div([
-        html.H1('年齢別運転免許証保有割合')],
-        style={'textAlign': 'center'}),
+        html.H1('年齢別運転免許証保有割合')
+        ], style={"textAlign": 'center'}),    
         dcc.Graph(id='percentage-chart',
                 figure={
                     'data':[
                         go.Bar(
                             x = df['age'],
                             y = df1['合計'] / df['total'],
-                            name = 'percentage who has driver license'
+                            name = 'percentage who has driver license',
                         )
                     ],
                     'layout':{
                         'xaxis': {'title':{'text': '<b>年齢</b>', 'font':{'size': 20}}},
                         'yaxis': {'title': {'text': '<b>割合</b>',
-                        'font':{'size': 20}}}
+                        'font':{'size': 20}}},
+                        'marginRight': '20%'
                     }
                 })
     ]),
-])
+], style={'marginBottom': '5%'})
 
 if __name__ == '__main__':
     app.run_server(debug=True)
