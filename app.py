@@ -7,14 +7,16 @@ import os
 
 df = pd.read_csv('allpop.csv', index_col=0)
 df1 = pd.read_csv('driver-license.csv', index_col=0)
+df2 = pd.read_csv('drv0118.csv', index_col=0)
 
 app = dash.Dash(__name__)
 server = app.server
 app.layout = html.Div([
     html.Div([
-        html.H1('日本の年齢別人口(青色)と運転免許証の分布（オレンジ）')
+        html.Div([
+            html.H1('日本の年齢別人口(青色)と運転免許証の分布（オレンジ） 2018年度')
     ], style={'textAlign': 'center'}),
-    html.Div([
+        html.Div([
         dcc.Graph(id='age-chart',
                 figure={
                     'data':[
@@ -37,9 +39,10 @@ app.layout = html.Div([
                         'height': '900px',
                     }
                 }
-        ),
+        ),]),
     html.Div([
-        html.H1('年齢別運転免許証保有割合')
+    html.Div([
+        html.H1('年齢別運転免許証保有割合　2018年度')
         ], style={"textAlign": 'center'}),    
         dcc.Graph(id='percentage-chart',
                 figure={
@@ -57,6 +60,32 @@ app.layout = html.Div([
                         'marginRight': '20%'
                     }
                 })
+            ]),
+        ]),
+    html.Div([
+        html.H1(['運転免許保有数変化（2001年＝＞2018年）'],style={'textAlign': 'center'}),
+        dcc.Graph(id='histgram-2001-2018',
+            figure={
+                'data': [
+                    go.Scatter(
+                        x = df2['age'],
+                        y = df2['2001'],
+                        name = '2001',
+                        fill='tozeroy',
+                    ),
+                    go.Scatter(
+                        x=df2['age'],
+                        y=df2['2018'],
+                        name='2018',
+                        fill='tozeroy'
+                    )
+                ],
+                'layout':{
+                    'xaxis':{'title': '<b>年代</b>', 'font':{'size': 20}},
+                    'yaxis':{'title': '<b>免許保有者数</b>', 'font':{'size':20}}
+                }
+            }
+        )
     ]),
 ], style={'marginBottom': '5%'})
 
