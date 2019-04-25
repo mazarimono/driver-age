@@ -3,12 +3,13 @@ import dash_core_components as dcc
 import dash_html_components as html 
 import plotly.graph_objs as go 
 import pandas as pd 
+import os 
 
 df = pd.read_csv('allpop.csv', index_col=0)
 df1 = pd.read_csv('driver-license.csv', index_col=0)
 
 app = dash.Dash(__name__)
-
+server = app.server
 app.layout = html.Div([
     html.Div([
         html.H1('日本の年齢別人口(青色)と運転免許証の分布（オレンジ）')
