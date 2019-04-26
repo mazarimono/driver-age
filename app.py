@@ -14,7 +14,7 @@ server = app.server
 app.layout = html.Div([
         html.Div([
             html.H1(['日本の運転免許所保有データ'], style={'textAlign': 'center'}),
-            html.H2(['１．日本の年齢別人口(青)と運転免許証の分布（緑）と保有割合（橙：線） 2018年度'], style={'textAlign': 'center'}),
+            html.H2(['１．日本の年齢別人口(青)と運転免許証の分布（緑）と保有割合（桃：線） 2018年度'], style={'textAlign': 'center'}),
         html.Div([
         dcc.Graph(id='age-chart',
                 figure={
