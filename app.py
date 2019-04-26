@@ -21,21 +21,24 @@ app.layout = html.Div([
                         go.Bar(
                             x=df['age'],
                             y=df['total'],
-                            name = 'population',
+                            name = '人口',
                             showlegend=False,
+                            hoverlabel={'font':{'size': 30}}
                         ),
                         go.Bar(
                             x = df['age'],
                             y = df1['合計'],
-                            name='has driver license',
+                            name='免許保有人口',
                             showlegend=False,
+                            hoverlabel={'font':{'size': 30}}
                         ),
                         go.Scatter(
                             x = df['age'],
                             y = df1['合計'] / df['total'],
-                            name = 'percentage who has driver license',
+                            name = '免許保有割合',
                             yaxis = 'y2',
-                            showlegend=False
+                            showlegend=False,
+                            hoverlabel={'font':{'size': 30}}
                         )
                     ],
                     'layout':{
@@ -57,7 +60,9 @@ app.layout = html.Div([
                         x=df['age'],
                         y=df1['percent'],
                         showlegend=False,
-                        fill='tozeroy'
+                        fill='tozeroy',
+                        name='免許保有累計割合',
+                        hoverlabel={'font':{'size': 30}}
                     )
                 ]
             }
@@ -71,14 +76,16 @@ app.layout = html.Div([
                     go.Scatter(
                         x = df2['age'],
                         y = df2['2001'],
-                        name = '2001',
+                        name = '2001年免許保有者数',
                         fill='tozeroy',
+                        hoverlabel={'font':{'size': 30}}
                     ),
                     go.Scatter(
                         x=df2['age'],
                         y=df2['2018'],
-                        name='2018',
-                        fill='tozeroy'
+                        name='2018免許保有者数',
+                        fill='tozeroy',
+                        hoverlabel={'font':{'size': 30}}
                     )
                 ],
                 'layout':{
