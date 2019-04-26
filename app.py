@@ -12,10 +12,8 @@ df2 = pd.read_csv('drv0118.csv', index_col=0)
 app = dash.Dash(__name__)
 server = app.server
 app.layout = html.Div([
-    html.Div([
         html.Div([
-            html.H1('日本の年齢別人口(青色)と運転免許証の分布（オレンジ） 2018年度')
-    ], style={'textAlign': 'center'}),
+            html.H1(['日本の年齢別人口(青色)と運転免許証の分布（オレンジ） 2018年度'], style={'textAlign': 'center'}),
         html.Div([
         dcc.Graph(id='age-chart',
                 figure={
@@ -32,38 +30,41 @@ app.layout = html.Div([
                             name='has driver license',
                             showlegend=False,
                         ),
-                    ],
-                    'layout':{
-                        'xaxis': {'title':{'text': '<b>年齢</b>', 'font':{'size': 20}}},
-                        'yaxis':{'title':{'text': '<b>人口</b>', 'font':{'size': 20}}},
-                        'height': '900px',
-                    }
-                }
-        ),]),
-    html.Div([
-    html.Div([
-        html.H1('年齢別運転免許証保有割合　2018年度')
-        ], style={"textAlign": 'center'}),    
-        dcc.Graph(id='percentage-chart',
-                figure={
-                    'data':[
-                        go.Bar(
+                        go.Scatter(
                             x = df['age'],
                             y = df1['合計'] / df['total'],
                             name = 'percentage who has driver license',
+                            yaxis = 'y2',
+                            showlegend=False
                         )
                     ],
                     'layout':{
                         'xaxis': {'title':{'text': '<b>年齢</b>', 'font':{'size': 20}}},
-                        'yaxis': {'title': {'text': '<b>割合</b>',
-                        'font':{'size': 20}}},
-                        'marginRight': '20%'
+                        'yaxis':{'title':{'text': '<b>人口</b>', 'font':{'size': 20}}},
+                        'yaxis2':{'title':{'text': '<b>免許保有割合</b>'}, 'overlaying': 'y',
+                        'side': 'right'},
+                        
                     }
-                })
-            ]),
+                }
+            ),
+        ]),
         ]),
     html.Div([
-        html.H1(['運転免許保有数変化（2001年＝＞2018年）'],style={'textAlign': 'center'}),
+        dcc.Graph(id='cumsum-pct',
+            figure={
+                'data': [
+                    go.Scatter(
+                        x=df['age'],
+                        y=df1['percent'],
+                        showlegend=False,
+                        fill='tozeroy'
+                    )
+                ]
+            }
+        )
+    ]),
+    html.Div([
+        html.H3(['運転免許保有数変化（2001年＝＞2018年）'],style={'textAlign': 'center'}),
         dcc.Graph(id='histgram-2001-2018',
             figure={
                 'data': [
