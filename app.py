@@ -57,13 +57,13 @@ app.layout = html.Div([
         ]),
         ]),
     html.Div([
-        html.H2(['２．免許保有累計割合 2018年度'], style={'textAlign': 'center'}),
+        html.H2(['２．免許保有累計人数 2018年度'], style={'textAlign': 'center'}),
         dcc.Graph(id='cumsum-pct',
             figure={
                 'data': [
                     go.Scatter(
                         x=df['age'],
-                        y=df1['percent'],
+                        y=df1['cumsum'],
                         name='免許保有累計割合',
                         showlegend=False,
                         fill='tozeroy',
